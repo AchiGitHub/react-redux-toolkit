@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import {
   createTransaction,
@@ -8,9 +8,14 @@ import {
 import HistoryCard from "../../containers/HistoryCard";
 import IncomeExpenseCard from "../../containers/IncomeExpenseCard";
 import "./styles.css";
+import { useSelector } from "react-redux";
 
-function Home({ transactions, dispatch }) {
+function Home() {
+  const dispatch = useDispatch();
+  const transactions = useSelector((state) => state.transactions.transactions);
+
   const { data } = transactions;
+
   let totalSum = 0,
     totalExpense = 0,
     totalIncome = 0;
@@ -76,10 +81,4 @@ function Home({ transactions, dispatch }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    transactions: state.transactions.transactions,
-  };
-};
-
-export default connect(mapStateToProps, null)(Home);
+export default Home;
